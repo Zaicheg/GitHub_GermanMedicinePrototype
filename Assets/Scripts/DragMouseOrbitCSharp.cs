@@ -54,18 +54,18 @@ public class DragMouseOrbitCSharp : MonoBehaviour
 		_targetZoom -= value * ZoomSpeed;
 	}
 
+	public void Rotate(float valueX, float valueY)
+	{
+		_mouseX = Mathf.Clamp(valueX, Min, Max);
+		_mouseY = Mathf.Clamp(valueY, Min, Max);
+		_velocityX += XSpeed * _mouseX;
+		_velocityY += YSpeed * _mouseY;
+	}
+
 	private void LateUpdate()
 	{
 		if (Target)
 		{
-			if (Input.GetMouseButton(0))
-			{
-				_mouseX = Mathf.Clamp(Input.GetAxis("Mouse X"), Min, Max);
-				_mouseY = Mathf.Clamp(Input.GetAxis("Mouse Y"), Min, Max);
-				_velocityX += XSpeed * _mouseX;
-				_velocityY += YSpeed * _mouseY;
-			}
-
 			_rotationYAxis += _velocityX;
 			_rotationXAxis -= _velocityY;
 

@@ -87,7 +87,7 @@ public class InputManager : Singleton<InputManager>
 	{
 		var scrollValue = Input.GetAxis("Mouse ScrollWheel");
 		if (scrollValue != 0f)
-			CameraManager.Instance.DragMouseScript.Zoom(Mathf.Sign(scrollValue));
+			CameraManager.Instance.DragMouseScript.Zoom(scrollValue);
 	}
 
 	/// <summary>
@@ -111,9 +111,9 @@ public class InputManager : Singleton<InputManager>
 		var verticalValue = Input.GetAxis("Mouse Y");
 
 		if (horizontalValue != 0f)
-			CameraManager.Instance.DragMouseScript.Zoom(Mathf.Sign(horizontalValue));
+			CameraManager.Instance.DragMouseScript.Rotate(horizontalValue, 0f);
 		if (verticalValue != 0f)
-			CameraManager.Instance.DragMouseScript.Zoom(-Mathf.Sign(verticalValue));
+			CameraManager.Instance.DragMouseScript.Rotate(0f, -verticalValue);
 	}
 
 

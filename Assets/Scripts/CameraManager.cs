@@ -58,5 +58,7 @@ public class CameraManager : Singleton<CameraManager>
 		Spectator.transform.position += Vector3.right * distance;
 		Spectator.transform.position += Vector3.up * distance;
 		Spectator.transform.LookAt(General.Instance.GetCenter());
+
+		DragMouseScript.Target.position = Vector3.zero;
 	}
 }

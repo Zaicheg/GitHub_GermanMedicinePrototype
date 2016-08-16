@@ -64,19 +64,19 @@ public class GUIManager : Singleton<GUIManager>
 	/// </summary>
 	private void CheckRepeatButtons()
 	{
-		//if (CameraControl_RotateLeftButton.IsPressed)
-		//	CameraManager.Instance.RotateCamera(new Vector2(-1f, 0f));
-		//if (CameraControl_RotateRightButton.IsPressed)
-		//	CameraManager.Instance.RotateCamera(new Vector2(1f, 0f));
-		//if (CameraControl_RotateDownButton.IsPressed)
-		//	CameraManager.Instance.RotateCamera(new Vector2(0f, -1f));
-		//if (CameraControl_RotateUpButton.IsPressed)
-		//	CameraManager.Instance.RotateCamera(new Vector2(0f, 1f));
+		if (CameraControl_RotateLeftButton.IsPressed)
+			CameraManager.Instance.DragMouseScript.Rotate(-1f, 0f);
+		if (CameraControl_RotateRightButton.IsPressed)
+			CameraManager.Instance.DragMouseScript.Rotate(1f, 0f);
+		if (CameraControl_RotateDownButton.IsPressed)
+			CameraManager.Instance.DragMouseScript.Rotate(0f, -1f);
+		if (CameraControl_RotateUpButton.IsPressed)
+			CameraManager.Instance.DragMouseScript.Rotate(0f, 1f);
 
-		//if (CameraControl_ZoomOutButton.IsPressed)
-		//	CameraManager.Instance.ZoomCamera(-1f);
-		//if (CameraControl_ZoomInButton.IsPressed)
-		//	CameraManager.Instance.ZoomCamera(1f);
+		if (CameraControl_ZoomOutButton.IsPressed)
+			CameraManager.Instance.DragMouseScript.Zoom(-1f);
+		if (CameraControl_ZoomInButton.IsPressed)
+			CameraManager.Instance.DragMouseScript.Zoom(1f);
 	}
 
 	/// <summary>

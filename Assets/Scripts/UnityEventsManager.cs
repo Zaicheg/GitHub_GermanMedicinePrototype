@@ -31,6 +31,6 @@ public class UnityEventsManager : Singleton<UnityEventsManager>
 	{
 		InputManager.Instance.UpdateEvent();
 		GUIManager.Instance.UpdateEvent();
-		//CameraManager.Instance.UpdateEvent();
+		CameraManager.Instance.UpdateEvent();
 	}
 }

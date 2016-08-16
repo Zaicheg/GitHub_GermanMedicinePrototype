@@ -38,12 +38,17 @@ public class CameraManager : Singleton<CameraManager>
 		Spectator.rect = new Rect(rectOffset, 0f, 1f, 1f);
 	}*/
 
+	public void UpdateEvent()
+	{
+		//LookAtCamera();
+	}
+
 	/// <summary>
 	/// Метод фокусирует камеру на определенной точке
 	/// </summary>
 	public void LookAtCamera()
 	{
-		Spectator.transform.LookAt(General.Instance.GetCenter());
+		DragMouseScript.Target.position = General.Instance.GetCenter();
 	}
 
 	/// <summary>

@@ -24,30 +24,30 @@ public class InputManager : Singleton<InputManager>
 	/// </summary>
 	private void GetKeyboardInput()
 	{
-		//if (Input.GetKey(KeyCode.LeftArrow))
-		//{
-		//	CameraManager.Instance.RotateCamera(new Vector2(-1f, 0f));
-		//}
-		//if (Input.GetKey(KeyCode.RightArrow))
-		//{
-		//	CameraManager.Instance.RotateCamera(new Vector2(1f, 0f));
-		//}
-		//if (Input.GetKey(KeyCode.DownArrow))
-		//{
-		//	CameraManager.Instance.RotateCamera(new Vector2(0f, -1f));
-		//}
-		//if (Input.GetKey(KeyCode.UpArrow))
-		//{
-		//	CameraManager.Instance.RotateCamera(new Vector2(0f, 1f));
-		//}
-		//if (Input.GetKey(KeyCode.PageDown))
-		//{
-		//	CameraManager.Instance.ZoomCamera(-1f);
-		//}
-		//if (Input.GetKey(KeyCode.PageUp))
-		//{
-		//	CameraManager.Instance.ZoomCamera(1f);
-		//}
+		if (Input.GetKey(KeyCode.LeftArrow))
+		{
+			CameraManager.Instance.DragMouseScript.Rotate(-1f, 0f);
+		}
+		if (Input.GetKey(KeyCode.RightArrow))
+		{
+			CameraManager.Instance.DragMouseScript.Rotate(1f, 0f);
+		}
+		if (Input.GetKey(KeyCode.DownArrow))
+		{
+			CameraManager.Instance.DragMouseScript.Rotate(0f, -1f);
+		}
+		if (Input.GetKey(KeyCode.UpArrow))
+		{
+			CameraManager.Instance.DragMouseScript.Rotate(0f, 1f);
+		}
+		if (Input.GetKey(KeyCode.PageDown))
+		{
+			CameraManager.Instance.DragMouseScript.Zoom(-1f);
+		}
+		if (Input.GetKey(KeyCode.PageUp))
+		{
+			CameraManager.Instance.DragMouseScript.Zoom(1f);
+		}
 	}
 
 	#endregion

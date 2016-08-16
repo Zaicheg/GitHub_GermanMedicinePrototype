@@ -9,9 +9,9 @@ public class GUIManager : Singleton<GUIManager>
 {
 	protected GUIManager() { }
 
-	public Toggle EdgesLengthOneButton;
-	public Toggle EdgesLengthTwoButton;
-	public Toggle EdgesLengthThreeButton;
+	public Toggle EdgesLengthOneToggle;
+	public Toggle EdgesLengthTwoToggle;
+	public Toggle EdgesLengthThreeToggle;
 
 	public ExtendedButton CameraControl_RotateLeftButton;
 	public ExtendedButton CameraControl_RotateRightButton;
@@ -21,6 +21,8 @@ public class GUIManager : Singleton<GUIManager>
 	public ExtendedButton CameraControl_ZoomInButton;
 
 	public Text BudgetText;
+
+	public Button ResetButton;
 
 	public Color selectedItemTextColor;
 
@@ -45,11 +47,13 @@ public class GUIManager : Singleton<GUIManager>
 	/// </summary>
 	private void InitElements()
 	{
-		EdgesLengthOneButton.onValueChanged.AddListener(EdgesLengthOneButtonOnClickEvent);
-		EdgesLengthTwoButton.onValueChanged.AddListener(EdgesLengthTwoButtonOnClickEvent);
-		EdgesLengthThreeButton.onValueChanged.AddListener(EdgesLengthThreeButtonOnClickEvent);
+		EdgesLengthOneToggle.onValueChanged.AddListener(EdgesLengthOneToggleOnValueChangedEvent);
+		EdgesLengthTwoToggle.onValueChanged.AddListener(EdgesLengthTwoToggleOnValueChangedEvent);
+		EdgesLengthThreeToggle.onValueChanged.AddListener(EdgesLengthThreeToggleOnValueChangedEvent);
+
+		ResetButton.onClick.AddListener(ResetButtonOnClickEvent);
 	}
-	
+
 
 	/// <summary>
 	/// Метод проверяет состояние зажимаемых кнопок
@@ -74,7 +78,7 @@ public class GUIManager : Singleton<GUIManager>
 	/// <summary>
 	/// Метод обрабатывает нажатие на кнопку "400 мм"
 	/// </summary>
-	private void EdgesLengthOneButtonOnClickEvent(bool enabled)
+	private void EdgesLengthOneToggleOnValueChangedEvent(bool value)
 	{
 		General.Instance.SelectEdgesLength(400f);
 	}
@@ -82,7 +86,7 @@ public class GUIManager : Singleton<GUIManager>
 	/// <summary>
 	/// Метод обрабатывает нажатие на кнопку "500 мм"
 	/// </summary>
-	private void EdgesLengthTwoButtonOnClickEvent(bool enabled)
+	private void EdgesLengthTwoToggleOnValueChangedEvent(bool value)
 	{
 		General.Instance.SelectEdgesLength(500f);
 	}
@@ -90,11 +94,18 @@ public class GUIManager : Singleton<GUIManager>
 	/// <summary>
 	/// Метод обрабатывает нажатие на кнопку "700 мм"
 	/// </summary>
-	private void EdgesLengthThreeButtonOnClickEvent(bool enabled)
+	private void EdgesLengthThreeToggleOnValueChangedEvent(bool value)
 	{
 		General.Instance.SelectEdgesLength(700f);
 	}
 
+	/// <summary>
+	/// Метод обрабатывает нажатие кнопки "Reset"
+	/// </summary>
+	private void ResetButtonOnClickEvent()
+	{
+		//General.Instance.Reset();
+	}
 
 	/// <summary>
 	/// Метод обрабатывает событие "изменена смета"

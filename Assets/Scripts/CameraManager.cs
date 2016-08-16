@@ -16,6 +16,7 @@ public class CameraManager : Singleton<CameraManager>
 	public RectTransform CanvasRect;
 	public RectTransform MainMenuRect;
 
+	/*
 	/// <summary>
 	/// Метод обрабатывает событие Update
 	/// </summary>
@@ -34,7 +35,7 @@ public class CameraManager : Singleton<CameraManager>
 		var screenWidth = (float)Screen.width;
 		var rectOffset = scaleFactor / (screenWidth / 100f) / 100f;
 		Spectator.rect = new Rect(rectOffset, 0f, 1f, 1f);
-	}
+	}*/
 
 	/// <summary>
 	/// Метод поворачивает камеру
@@ -88,7 +89,7 @@ public class CameraManager : Singleton<CameraManager>
 	/// </summary>
 	public void MoveSpectatorInDefaultPosition()
 	{
-		const float distance = 0.1f;
+		const float distance = 0.5f;
 
 		Spectator.transform.position = General.Instance.GetCenter();
 		Spectator.transform.position += Vector3.forward * distance;

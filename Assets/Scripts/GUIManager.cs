@@ -9,9 +9,9 @@ public class GUIManager : Singleton<GUIManager>
 {
 	protected GUIManager() { }
 
-	public Button EdgesLengthOneButton;
-	public Button EdgesLengthTwoButton;
-	public Button EdgesLengthThreeButton;
+	public Toggle EdgesLengthOneButton;
+	public Toggle EdgesLengthTwoButton;
+	public Toggle EdgesLengthThreeButton;
 
 	public ExtendedButton CameraControl_RotateLeftButton;
 	public ExtendedButton CameraControl_RotateRightButton;
@@ -45,10 +45,11 @@ public class GUIManager : Singleton<GUIManager>
 	/// </summary>
 	private void InitElements()
 	{
-		EdgesLengthOneButton.onClick.AddListener(EdgesLengthOneButtonOnClickEvent);
-		EdgesLengthTwoButton.onClick.AddListener(EdgesLengthTwoButtonOnClickEvent);
-		EdgesLengthThreeButton.onClick.AddListener(EdgesLengthThreeButtonOnClickEvent);
+		EdgesLengthOneButton.onValueChanged.AddListener(EdgesLengthOneButtonOnClickEvent);
+		EdgesLengthTwoButton.onValueChanged.AddListener(EdgesLengthTwoButtonOnClickEvent);
+		EdgesLengthThreeButton.onValueChanged.AddListener(EdgesLengthThreeButtonOnClickEvent);
 	}
+	
 
 	/// <summary>
 	/// Метод проверяет состояние зажимаемых кнопок
@@ -73,7 +74,7 @@ public class GUIManager : Singleton<GUIManager>
 	/// <summary>
 	/// Метод обрабатывает нажатие на кнопку "400 мм"
 	/// </summary>
-	private void EdgesLengthOneButtonOnClickEvent()
+	private void EdgesLengthOneButtonOnClickEvent(bool enabled)
 	{
 		General.Instance.SelectEdgesLength(400f);
 	}
@@ -81,7 +82,7 @@ public class GUIManager : Singleton<GUIManager>
 	/// <summary>
 	/// Метод обрабатывает нажатие на кнопку "500 мм"
 	/// </summary>
-	private void EdgesLengthTwoButtonOnClickEvent()
+	private void EdgesLengthTwoButtonOnClickEvent(bool enabled)
 	{
 		General.Instance.SelectEdgesLength(500f);
 	}
@@ -89,26 +90,11 @@ public class GUIManager : Singleton<GUIManager>
 	/// <summary>
 	/// Метод обрабатывает нажатие на кнопку "700 мм"
 	/// </summary>
-	private void EdgesLengthThreeButtonOnClickEvent()
+	private void EdgesLengthThreeButtonOnClickEvent(bool enabled)
 	{
 		General.Instance.SelectEdgesLength(700f);
 	}
 
-	/// <summary>
-	/// Метод обрабатывает событие "длина ребра изменена"
-	/// </summary>
-	/// <param name="edgesLength"></param>
-	public void EdgesLengthOnChangedEvent(float edgesLength)
-	{
-		EdgesLengthOneButton.GetComponentInChildren<Text>().color = EdgesLengthTwoButton.GetComponentInChildren<Text>().color = EdgesLengthThreeButton.GetComponentInChildren<Text>().color = Color.white;
-
-		if (edgesLength == 400f)
-			EdgesLengthOneButton.GetComponentInChildren<Text>().color = selectedItemTextColor;
-		if (edgesLength == 500f)
-			EdgesLengthTwoButton.GetComponentInChildren<Text>().color = selectedItemTextColor;
-		if (edgesLength == 700f)
-			EdgesLengthThreeButton.GetComponentInChildren<Text>().color = selectedItemTextColor;
-	}
 
 	/// <summary>
 	/// Метод обрабатывает событие "изменена смета"

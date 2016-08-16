@@ -9,6 +9,8 @@ public class InputManager : Singleton<InputManager>
 
 	private MouseRaycastResult _mouseRaycastResult; // Результат рейкаста по курсору
 
+	private GameObject MouseDownGameObject;
+
 	public void UpdateEvent()
 	{
 		GetKeyboardInput();
@@ -22,62 +24,74 @@ public class InputManager : Singleton<InputManager>
 	/// </summary>
 	private void GetKeyboardInput()
 	{
-		if (Input.GetKey(KeyCode.LeftArrow))
-		{
-			CameraManager.Instance.RotateCamera(new Vector2(-1f, 0f));
-		}
-		if (Input.GetKey(KeyCode.RightArrow))
-		{
-			CameraManager.Instance.RotateCamera(new Vector2(1f, 0f));
-		}
-		if (Input.GetKey(KeyCode.DownArrow))
-		{
-			CameraManager.Instance.RotateCamera(new Vector2(0f, -1f));
-		}
-		if (Input.GetKey(KeyCode.UpArrow))
-		{
-			CameraManager.Instance.RotateCamera(new Vector2(0f, 1f));
-		}
-		if (Input.GetKey(KeyCode.PageDown))
-		{
-			CameraManager.Instance.ZoomCamera(-1f);
-		}
-		if (Input.GetKey(KeyCode.PageUp))
-		{
-			CameraManager.Instance.ZoomCamera(1f);
-		}
+		//if (Input.GetKey(KeyCode.LeftArrow))
+		//{
+		//	CameraManager.Instance.RotateCamera(new Vector2(-1f, 0f));
+		//}
+		//if (Input.GetKey(KeyCode.RightArrow))
+		//{
+		//	CameraManager.Instance.RotateCamera(new Vector2(1f, 0f));
+		//}
+		//if (Input.GetKey(KeyCode.DownArrow))
+		//{
+		//	CameraManager.Instance.RotateCamera(new Vector2(0f, -1f));
+		//}
+		//if (Input.GetKey(KeyCode.UpArrow))
+		//{
+		//	CameraManager.Instance.RotateCamera(new Vector2(0f, 1f));
+		//}
+		//if (Input.GetKey(KeyCode.PageDown))
+		//{
+		//	CameraManager.Instance.ZoomCamera(-1f);
+		//}
+		//if (Input.GetKey(KeyCode.PageUp))
+		//{
+		//	CameraManager.Instance.ZoomCamera(1f);
+		//}
 	}
 
 	#endregion
 
 	#region Приём ввода через мышь
-	
+
 	/// <summary>
 	/// Метод принимает ввод с мыши
 	/// </summary>
 	private void GetMouseInput()
 	{
+		if (General.Instance.ContextMenuOpened)
+			return;
+
 		if (Input.GetMouseButtonDown(0))
 			MouseLeftDown();
 
-		if (Input.GetMouseButton(1))
-			MouseRightStay();
+		if (Input.GetMouseButton(0))
+			MouseLeftStay();
+
+		if (Input.GetMouseButtonUp(0))
+			MouseLeftUp();
+
+		if (Input.GetMouseButtonDown(1))
+			MouseRightDown();
+
+		if (Input.GetMouseButtonUp(1))
+			MouseRightUp();
 
 		GetMouseScroll();
 	}
 
 	/// <summary>
-	/// Метод принимает ввод с колесика мыши
+	/// Метод обрабатывает событие "Прокрутка колесика мыши"
 	/// </summary>
 	private void GetMouseScroll()
 	{
 		var scrollValue = Input.GetAxis("Mouse ScrollWheel");
 		if (scrollValue != 0f)
-			CameraManager.Instance.ZoomCamera(Mathf.Sign(scrollValue) * 8f);
+			CameraManager.Instance.DragMouseScript.Zoom(Mathf.Sign(scrollValue));
 	}
 
 	/// <summary>
-	/// Ввод при нажатии ЛКМ
+	/// Метод обрабатывает событие "Нажали ЛКМ"
 	/// </summary>
 	private void MouseLeftDown()
 	{
@@ -85,22 +99,68 @@ public class InputManager : Singleton<InputManager>
 		if (_mouseRaycastResult == null)
 			return;
 
-		if (_mouseRaycastResult.Type == RaycastedObjectType.NodeSide)
-			General.Instance.CreateEdgeForNodeSide(_mouseRaycastResult.GameObject.GetComponent<NodeSide>());
+		MouseDownGameObject = _mouseRaycastResult.GameObject;
 	}
 
 	/// <summary>
-	/// Ввод при зажатии ПКМ
+	/// Метод обрабатывает событие "Зажали ЛКМ"
 	/// </summary>
-	private void MouseRightStay()
+	private void MouseLeftStay()
 	{
 		var horizontalValue = Input.GetAxis("Mouse X");
 		var verticalValue = Input.GetAxis("Mouse Y");
 
 		if (horizontalValue != 0f)
-			CameraManager.Instance.RotateCamera(new Vector2(Mathf.Sign(horizontalValue), 0f));
+			CameraManager.Instance.DragMouseScript.Zoom(Mathf.Sign(horizontalValue));
 		if (verticalValue != 0f)
-			CameraManager.Instance.RotateCamera(new Vector2(0f, -Mathf.Sign(verticalValue)));
+			CameraManager.Instance.DragMouseScript.Zoom(-Mathf.Sign(verticalValue));
+	}
+
+
+	/// <summary>
+	/// Метод обрабатывает событие "Отпустили ЛКМ"
+	/// </summary>
+	private void MouseLeftUp()
+	{
+		_mouseRaycastResult = MouseRaycast(new List<RaycastedObjectType>() { RaycastedObjectType.NodeSide });
+		if (_mouseRaycastResult == null)
+			return;
+
+		if (_mouseRaycastResult.GameObject != MouseDownGameObject)
+			return;
+
+		if (_mouseRaycastResult.Type == RaycastedObjectType.NodeSide)
+			General.Instance.CreateEdgeForNodeSide(_mouseRaycastResult.GameObject.GetComponent<NodeSide>());
+	}
+
+	/// <summary>
+	/// Метод обрабатывает событие "Нажали ПКМ"
+	/// </summary>
+	private void MouseRightDown()
+	{
+		_mouseRaycastResult = MouseRaycast(new List<RaycastedObjectType>() { RaycastedObjectType.NodeSide, RaycastedObjectType.Edge });
+		if (_mouseRaycastResult == null)
+			return;
+
+		MouseDownGameObject = _mouseRaycastResult.GameObject;
+	}
+
+	/// <summary>
+	/// Метод обрабатывает событие "Отпустили ПКМ"
+	/// </summary>
+	private void MouseRightUp()
+	{
+		_mouseRaycastResult = MouseRaycast(new List<RaycastedObjectType>() { RaycastedObjectType.NodeSide, RaycastedObjectType.Edge });
+		if (_mouseRaycastResult == null)
+			return;
+
+		if (_mouseRaycastResult.GameObject != MouseDownGameObject)
+			return;
+
+		if (_mouseRaycastResult.Type == RaycastedObjectType.NodeSide)
+			General.Instance.OpenContextMenuForNode(_mouseRaycastResult.GameObject.GetComponent<NodeSide>().Node);
+		if (_mouseRaycastResult.Type == RaycastedObjectType.Edge)
+			General.Instance.OpenContextMenuForEdge(_mouseRaycastResult.GameObject.GetComponent<Edge>());
 	}
 
 	#endregion
@@ -151,6 +211,8 @@ public class InputManager : Singleton<InputManager>
 			var layer = hit.transform.gameObject.layer;
 			if (layer == LayerMask.NameToLayer("NodeSide"))
 				type = RaycastedObjectType.NodeSide;
+			if (layer == LayerMask.NameToLayer("Edge"))
+				type = RaycastedObjectType.Edge;
 			resultTemp.Type = type;
 			resultTemp.GameObject = hit.transform.gameObject;
 			resultTemp.Hit = hit;

@@ -74,6 +74,7 @@
     <Compile Include="Assets\Effects\TonemappingColorGrading\TonemappingColorGrading.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Classes.cs" />
+    <Compile Include="Assets\Scripts\DragMouseOrbitCSharp.cs" />
     <Compile Include="Assets\Scripts\Edge.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\ExtendedButton.cs" />

@@ -20,6 +20,9 @@ public class GUIManager : Singleton<GUIManager>
 	public ExtendedButton CameraControl_ZoomOutButton;
 	public ExtendedButton CameraControl_ZoomInButton;
 
+	public GameObject ContextMenu;
+	public Button ContextMenu_DeleteButton;
+
 	public Text BudgetText;
 
 	public Button ResetButton;
@@ -51,28 +54,29 @@ public class GUIManager : Singleton<GUIManager>
 		EdgesLengthTwoToggle.onValueChanged.AddListener(EdgesLengthTwoToggleOnValueChangedEvent);
 		EdgesLengthThreeToggle.onValueChanged.AddListener(EdgesLengthThreeToggleOnValueChangedEvent);
 
+		ContextMenu_DeleteButton.onClick.AddListener(ContextMenu_DeleteButtonOnClickEvent);
+
 		ResetButton.onClick.AddListener(ResetButtonOnClickEvent);
 	}
-
 
 	/// <summary>
 	/// Метод проверяет состояние зажимаемых кнопок
 	/// </summary>
 	private void CheckRepeatButtons()
 	{
-		if (CameraControl_RotateLeftButton.IsPressed)
-			CameraManager.Instance.RotateCamera(new Vector2(-1f, 0f));
-		if (CameraControl_RotateRightButton.IsPressed)
-			CameraManager.Instance.RotateCamera(new Vector2(1f, 0f));
-		if (CameraControl_RotateDownButton.IsPressed)
-			CameraManager.Instance.RotateCamera(new Vector2(0f, -1f));
-		if (CameraControl_RotateUpButton.IsPressed)
-			CameraManager.Instance.RotateCamera(new Vector2(0f, 1f));
+		//if (CameraControl_RotateLeftButton.IsPressed)
+		//	CameraManager.Instance.RotateCamera(new Vector2(-1f, 0f));
+		//if (CameraControl_RotateRightButton.IsPressed)
+		//	CameraManager.Instance.RotateCamera(new Vector2(1f, 0f));
+		//if (CameraControl_RotateDownButton.IsPressed)
+		//	CameraManager.Instance.RotateCamera(new Vector2(0f, -1f));
+		//if (CameraControl_RotateUpButton.IsPressed)
+		//	CameraManager.Instance.RotateCamera(new Vector2(0f, 1f));
 
-		if (CameraControl_ZoomOutButton.IsPressed)
-			CameraManager.Instance.ZoomCamera(-1f);
-		if (CameraControl_ZoomInButton.IsPressed)
-			CameraManager.Instance.ZoomCamera(1f);
+		//if (CameraControl_ZoomOutButton.IsPressed)
+		//	CameraManager.Instance.ZoomCamera(-1f);
+		//if (CameraControl_ZoomInButton.IsPressed)
+		//	CameraManager.Instance.ZoomCamera(1f);
 	}
 
 	/// <summary>
@@ -104,7 +108,16 @@ public class GUIManager : Singleton<GUIManager>
 	/// </summary>
 	private void ResetButtonOnClickEvent()
 	{
-		//General.Instance.Reset();
+		General.Instance.Reset();
+	}
+
+	/// <summary>
+	/// Метод обрабатывает нажатие "Удалить" в контекстном меню
+	/// </summary>
+	private void ContextMenu_DeleteButtonOnClickEvent()
+	{
+		General.Instance.DeleteSelectedItem();
+		General.Instance.CloseContextMenu();
 	}
 
 	/// <summary>
@@ -113,5 +126,14 @@ public class GUIManager : Singleton<GUIManager>
 	public void BudgetChangedEvent(string text)
 	{
 		BudgetText.text = text;
+	}
+
+	/// <summary>
+	/// Метод обрабатывает событие "открытие/закрытие контекстного меню"
+	/// </summary>
+	/// <param name="value">Значение</param>
+	public void ContextMenuStateChanged(bool value)
+	{
+		ContextMenu.SetActive(value);
 	}
 }

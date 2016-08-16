@@ -38,10 +38,11 @@ public class CameraManager : Singleton<CameraManager>
 		Spectator.rect = new Rect(rectOffset, 0f, 1f, 1f);
 	}*/
 
-	public void UpdateEvent()
-	{
-		//LookAtCamera();
-	}
+	//public void UpdateEvent()
+	//{
+	//	LookAtCamera();
+	//	AutoZoomCamera();
+	//}
 
 	/// <summary>
 	/// Метод фокусирует камеру на определенной точке
@@ -49,6 +50,32 @@ public class CameraManager : Singleton<CameraManager>
 	public void LookAtCamera()
 	{
 		DragMouseScript.Target.position = General.Instance.GetCenter();
+	}
+
+	public void AutoZoomCamera()
+	{
+		var maxOffset = Mathf.NegativeInfinity;
+
+		foreach (var node in General.Instance.Nodes)
+		{
+			var a = Spectator.WorldToScreenPoint(node.transform.position);
+			if (a.x > Screen.width)
+				a.x = a.x - Screen.width;
+			else
+				a.x = 0f;
+			if (a.y > Screen.height)
+				a.y = a.y - Screen.height;
+			else
+				a.y = 0f;
+
+			if (Mathf.Abs(a.x) > maxOffset)
+				maxOffset = a.x;
+			if (Mathf.Abs(a.y) > maxOffset)
+				maxOffset = a.y;
+		}
+
+		if (maxOffset > 1f)
+			DragMouseScript.Zoom(-1f * (Screen.width / maxOffset) * 0.3f);
 	}
 
 	/// <summary>

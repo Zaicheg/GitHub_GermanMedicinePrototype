@@ -1942,10 +1942,10 @@ MonoBehaviour:
   Distance: 0.5
   XSpeed: 0.3
   YSpeed: 0.3
-  YMinLimit: 0
-  YMaxLimit: 360
+  YMinLimit: -90
+  YMaxLimit: 90
   DistanceMin: 0.1
-  DistanceMax: 3
+  DistanceMax: 5
   SmoothTime: 2
   PanSpeed: 0.03
   SpeedCoefficient: 0

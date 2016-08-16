@@ -20,7 +20,7 @@ public class GUIManager : Singleton<GUIManager>
 	public ExtendedButton CameraControl_ZoomOutButton;
 	public ExtendedButton CameraControl_ZoomInButton;
 
-	public GameObject ContextMenu;
+	public RectTransform ContextMenu;
 	public Button ContextMenu_DeleteButton;
 
 	public Text BudgetText;
@@ -134,6 +134,13 @@ public class GUIManager : Singleton<GUIManager>
 	/// <param name="value">Значение</param>
 	public void ContextMenuStateChanged(bool value)
 	{
-		ContextMenu.SetActive(value);
+		ContextMenu.gameObject.SetActive(value);
+
+		if (value)
+		{
+			ContextMenu.transform.position = new Vector2(
+				Input.mousePosition.x + ContextMenu.sizeDelta.x / 2f,
+				Input.mousePosition.y - ContextMenu.sizeDelta.y / 2f);
+		}
 	}
 }

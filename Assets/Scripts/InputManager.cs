@@ -60,7 +60,12 @@ public class InputManager : Singleton<InputManager>
 	private void GetMouseInput()
 	{
 		if (General.Instance.ContextMenuOpened)
+		{
+			if (Input.GetMouseButtonUp(0))
+				General.Instance.CloseContextMenu();
+
 			return;
+		}
 
 		if (Input.GetMouseButtonDown(0))
 			MouseLeftDown();

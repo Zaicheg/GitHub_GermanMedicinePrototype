@@ -64,7 +64,7 @@ public class GUIManager : Singleton<GUIManager>
 	/// </summary>
 	private void CheckRepeatButtons()
 	{
-		const float rotateSpeed = 1f;
+		const float rotateSpeed = 2f;
 		const float zoomSpeed = 0.005f;
 
 		if (CameraControl_RotateLeftButton.IsPressed)

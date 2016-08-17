@@ -24,7 +24,7 @@ public class InputManager : Singleton<InputManager>
 	/// </summary>
 	private void GetKeyboardInput()
 	{
-		const float rorateSpeed = 1f;
+		const float rorateSpeed = 2f;
 		const float zoomSpeed = 0.005f;
 
 		if (Input.GetKey(KeyCode.LeftArrow))

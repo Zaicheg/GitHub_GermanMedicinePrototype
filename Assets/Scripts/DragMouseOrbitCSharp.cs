@@ -33,10 +33,10 @@ public class DragMouseOrbitCSharp : MonoBehaviour
 	private float _mouseX;
 	private float _mouseY;
 
-	private const float Min = -1f;
-	private const float Max = 1f;
+	private const float Min = -10f;
+	private const float Max = 10f;
 
-	private float _targetZoom;
+	public float _targetZoom;
 	public float ZoomSpeed = 5.0f;
 
 	private void Start()
@@ -58,6 +58,7 @@ public class DragMouseOrbitCSharp : MonoBehaviour
 	{
 		_mouseX = Mathf.Clamp(valueX, Min, Max);
 		_mouseY = Mathf.Clamp(valueY, Min, Max);
+
 		_velocityX += XSpeed * _mouseX;
 		_velocityY += YSpeed * _mouseY;
 	}

@@ -24,29 +24,32 @@ public class InputManager : Singleton<InputManager>
 	/// </summary>
 	private void GetKeyboardInput()
 	{
+		const float rorateSpeed = 1f;
+		const float zoomSpeed = 0.005f;
+
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
-			CameraManager.Instance.DragMouseScript.Rotate(-1f, 0f);
+			CameraManager.Instance.DragMouseScript.Rotate(-1f * rorateSpeed, 0f);
 		}
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
-			CameraManager.Instance.DragMouseScript.Rotate(1f, 0f);
+			CameraManager.Instance.DragMouseScript.Rotate(1f * rorateSpeed, 0f);
 		}
 		if (Input.GetKey(KeyCode.DownArrow))
 		{
-			CameraManager.Instance.DragMouseScript.Rotate(0f, -1f);
+			CameraManager.Instance.DragMouseScript.Rotate(0f, -1f * rorateSpeed);
 		}
 		if (Input.GetKey(KeyCode.UpArrow))
 		{
-			CameraManager.Instance.DragMouseScript.Rotate(0f, 1f);
+			CameraManager.Instance.DragMouseScript.Rotate(0f, 1f * rorateSpeed);
 		}
 		if (Input.GetKey(KeyCode.PageDown))
 		{
-			CameraManager.Instance.DragMouseScript.Zoom(-1f);
+			CameraManager.Instance.DragMouseScript.Zoom(-1f * zoomSpeed);
 		}
 		if (Input.GetKey(KeyCode.PageUp))
 		{
-			CameraManager.Instance.DragMouseScript.Zoom(1f);
+			CameraManager.Instance.DragMouseScript.Zoom(1f * zoomSpeed);
 		}
 	}
 
@@ -112,13 +115,15 @@ public class InputManager : Singleton<InputManager>
 	/// </summary>
 	private void MouseLeftStay()
 	{
+		const float rotateSpeed = 25f;
+
 		var horizontalValue = Input.GetAxis("Mouse X");
 		var verticalValue = Input.GetAxis("Mouse Y");
 
 		if (horizontalValue != 0f)
-			CameraManager.Instance.DragMouseScript.Rotate(horizontalValue, 0f);
+			CameraManager.Instance.DragMouseScript.Rotate(horizontalValue * rotateSpeed, 0f);
 		if (verticalValue != 0f)
-			CameraManager.Instance.DragMouseScript.Rotate(0f, -verticalValue);
+			CameraManager.Instance.DragMouseScript.Rotate(0f, verticalValue * rotateSpeed);
 	}
 
 

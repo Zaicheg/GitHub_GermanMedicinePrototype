@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoiseTexture: {fileID: 2800000, guid: 45ca7cd7d934d6245bb4539f780e4892, type: 3}
   UseHighPrecisionDepthMap: 0
-  Samples: 0
+  Samples: 1
   Downsampling: 1
   Radius: 0.03
   Intensity: 1.2
@@ -1946,10 +1946,11 @@ MonoBehaviour:
   YMaxLimit: 90
   DistanceMin: 0.1
   DistanceMax: 5
-  SmoothTime: 2
+  SmoothTime: 100
   PanSpeed: 0.03
   SpeedCoefficient: 0
-  MaxSpeed: 3
+  MaxSpeed: 100
+  _targetZoom: 0
   ZoomSpeed: 2
 --- !u!1 &747450361
 GameObject:

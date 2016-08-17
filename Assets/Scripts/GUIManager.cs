@@ -64,19 +64,22 @@ public class GUIManager : Singleton<GUIManager>
 	/// </summary>
 	private void CheckRepeatButtons()
 	{
+		const float rotateSpeed = 1f;
+		const float zoomSpeed = 0.005f;
+
 		if (CameraControl_RotateLeftButton.IsPressed)
-			CameraManager.Instance.DragMouseScript.Rotate(-1f, 0f);
+			CameraManager.Instance.DragMouseScript.Rotate(-1f * rotateSpeed, 0f);
 		if (CameraControl_RotateRightButton.IsPressed)
-			CameraManager.Instance.DragMouseScript.Rotate(1f, 0f);
+			CameraManager.Instance.DragMouseScript.Rotate(1f * rotateSpeed, 0f);
 		if (CameraControl_RotateDownButton.IsPressed)
-			CameraManager.Instance.DragMouseScript.Rotate(0f, -1f);
+			CameraManager.Instance.DragMouseScript.Rotate(0f * rotateSpeed, -1f);
 		if (CameraControl_RotateUpButton.IsPressed)
-			CameraManager.Instance.DragMouseScript.Rotate(0f, 1f);
+			CameraManager.Instance.DragMouseScript.Rotate(0f * rotateSpeed, 1f);
 
 		if (CameraControl_ZoomOutButton.IsPressed)
-			CameraManager.Instance.DragMouseScript.Zoom(-1f);
+			CameraManager.Instance.DragMouseScript.Zoom(-1f * zoomSpeed);
 		if (CameraControl_ZoomInButton.IsPressed)
-			CameraManager.Instance.DragMouseScript.Zoom(1f);
+			CameraManager.Instance.DragMouseScript.Zoom(1f * zoomSpeed);
 	}
 
 	/// <summary>
